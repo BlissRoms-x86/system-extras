@@ -48,7 +48,7 @@ int wipe_block_device(int fd, s64 len)
 	range[1] = len;
 	ret = ioctl(fd, BLKSECDISCARD, &range);
 	if (ret < 0) {
-#endif /* NO_SECURE_DISCARD */
+#endif
 		range[0] = 0;
 		range[1] = len;
 		ret = ioctl(fd, BLKDISCARD, &range);
@@ -61,7 +61,7 @@ int wipe_block_device(int fd, s64 len)
 		}
 #ifndef NO_SECURE_DISCARD
 	}
-#endif /* NO_SECURE_DISCARD */
+#endif
 	return 0;
 #else
 	warn("Wipe via secure discard suppressed due to bug in EMMC firmware\n");
